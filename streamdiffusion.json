@@ -1,0 +1,588 @@
+{
+  "last_node_id": 78,
+  "last_link_id": 107,
+  "nodes": [
+    {
+      "id": 67,
+      "type": "DiffusersModelMakeup",
+      "pos": [
+        900,
+        130
+      ],
+      "size": {
+        "0": 300,
+        "1": 70
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipeline",
+          "type": "PIPELINE",
+          "link": 92
+        },
+        {
+          "name": "scheduler",
+          "type": "SCHEDULER",
+          "link": 93,
+          "slot_index": 1
+        },
+        {
+          "name": "autoencoder",
+          "type": "AUTOENCODER",
+          "link": 94,
+          "slot_index": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MAKED_PIPELINE",
+          "type": "MAKED_PIPELINE",
+          "links": [
+            96,
+            100,
+            103
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersModelMakeup"
+      }
+    },
+    {
+      "id": 69,
+      "type": "StreamDiffusionCreateStream",
+      "pos": [
+        1300,
+        230
+      ],
+      "size": {
+        "0": 300,
+        "1": 222
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "maked_pipeline",
+          "type": "MAKED_PIPELINE",
+          "link": 96
+        },
+        {
+          "name": "autoencoder",
+          "type": "AUTOENCODER",
+          "link": 99,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STREAM",
+          "type": "STREAM",
+          "links": [
+            97
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StreamDiffusionCreateStream"
+      },
+      "widgets_values": [
+        "txt2image",
+        512,
+        512,
+        true,
+        true,
+        1,
+        "none"
+      ]
+    },
+    {
+      "id": 76,
+      "type": "DiffusersSampler",
+      "pos": [
+        1700,
+        130
+      ],
+      "size": {
+        "0": 300,
+        "1": 220
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "maked_pipeline",
+          "type": "MAKED_PIPELINE",
+          "link": 103
+        },
+        {
+          "name": "positive_embeds",
+          "type": "EMBEDS",
+          "link": 104
+        },
+        {
+          "name": "negative_embeds",
+          "type": "EMBEDS",
+          "link": 105
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PIL_IMAGE",
+          "type": "PIL_IMAGE",
+          "links": [
+            106
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersSampler"
+      },
+      "widgets_values": [
+        512,
+        512,
+        20,
+        8,
+        288360271826195,
+        "randomize"
+      ]
+    },
+    {
+      "id": 70,
+      "type": "StreamDiffusionSampler",
+      "pos": [
+        1700,
+        520
+      ],
+      "size": {
+        "0": 300,
+        "1": 220
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "stream",
+          "type": "STREAM",
+          "link": 97
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 101,
+          "widget": {
+            "name": "positive"
+          },
+          "slot_index": 1
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 102,
+          "widget": {
+            "name": "negative"
+          },
+          "slot_index": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PIL_IMAGE",
+          "type": "PIL_IMAGE",
+          "links": [
+            107
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StreamDiffusionSampler"
+      },
+      "widgets_values": [
+        "masterpiece, best quality, {{loli}}, kawaii, kawaii face, white hair, long hair, straight hair, blue eyes, simple color, bold line, lines of constant thickness, white background, simple illustration, naked, cool, dynamic angle, wet body, wet hair, body in water, ocean, \n",
+        "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, (worst quality:2),(low quality:2),(normal quality:2),lowres, bad anatomy,normal quality, (monochrome),greyscale verybadimagenegative_v1.3, EasyNegative, elf, thick eyebrows\n",
+        50,
+        8,
+        0.5,
+        299200320023940,
+        "randomize",
+        16
+      ]
+    },
+    {
+      "id": 77,
+      "type": "DiffusersSaveImage",
+      "pos": [
+        2100,
+        130
+      ],
+      "size": {
+        "0": 330,
+        "1": 340
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pil_images",
+          "type": "PIL_IMAGE",
+          "link": 106
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersSaveImage"
+      },
+      "widgets_values": [
+        "ComfyUI_Diffusers"
+      ]
+    },
+    {
+      "id": 78,
+      "type": "DiffusersSaveImage",
+      "pos": [
+        2100,
+        520
+      ],
+      "size": {
+        "0": 330,
+        "1": 340
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pil_images",
+          "type": "PIL_IMAGE",
+          "link": 107
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersSaveImage"
+      },
+      "widgets_values": [
+        "ComfyUI_Stream"
+      ]
+    },
+    {
+      "id": 74,
+      "type": "DiffusersClipTextEncode",
+      "pos": [
+        1300,
+        500
+      ],
+      "size": {
+        "0": 300,
+        "1": 300
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "maked_pipeline",
+          "type": "MAKED_PIPELINE",
+          "link": 100
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive_embeds",
+          "type": "EMBEDS",
+          "links": [
+            104
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "negative_embeds",
+          "type": "EMBEDS",
+          "links": [
+            105
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            101
+          ],
+          "shape": 3
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "links": [
+            102
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersClipTextEncode"
+      },
+      "widgets_values": [
+        "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,",
+        "text, watermark"
+      ]
+    },
+    {
+      "id": 68,
+      "type": "DiffusersVaeLoader",
+      "pos": [
+        500,
+        330
+      ],
+      "size": {
+        "0": 300,
+        "1": 60
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "AUTOENCODER",
+          "type": "AUTOENCODER",
+          "links": [
+            94,
+            99
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersVaeLoader"
+      },
+      "widgets_values": [
+        "vae-ft-mse-840000-ema-pruned.safetensors"
+      ]
+    },
+    {
+      "id": 66,
+      "type": "DiffusersSchedulerLoader",
+      "pos": [
+        500,
+        230
+      ],
+      "size": {
+        "0": 300,
+        "1": 60
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipeline",
+          "type": "PIPELINE",
+          "link": 95
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCHEDULER",
+          "type": "SCHEDULER",
+          "links": [
+            93
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersSchedulerLoader"
+      },
+      "widgets_values": [
+        "EulerAncestralDiscrete"
+      ]
+    },
+    {
+      "id": 64,
+      "type": "DiffusersPipelineLoader",
+      "pos": [
+        100,
+        130
+      ],
+      "size": {
+        "0": 300,
+        "1": 100
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PIPELINE",
+          "type": "PIPELINE",
+          "links": [
+            92,
+            95
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "AUTOENCODER",
+          "type": "AUTOENCODER",
+          "links": null,
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SCHEDULER",
+          "type": "SCHEDULER",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffusersPipelineLoader"
+      },
+      "widgets_values": [
+        "Counterfeit-V3.0_fix_fp16.safetensors"
+      ]
+    }
+  ],
+  "links": [
+    [
+      92,
+      64,
+      0,
+      67,
+      0,
+      "PIPELINE"
+    ],
+    [
+      93,
+      66,
+      0,
+      67,
+      1,
+      "SCHEDULER"
+    ],
+    [
+      94,
+      68,
+      0,
+      67,
+      2,
+      "AUTOENCODER"
+    ],
+    [
+      95,
+      64,
+      0,
+      66,
+      0,
+      "PIPELINE"
+    ],
+    [
+      96,
+      67,
+      0,
+      69,
+      0,
+      "MAKED_PIPELINE"
+    ],
+    [
+      97,
+      69,
+      0,
+      70,
+      0,
+      "STREAM"
+    ],
+    [
+      99,
+      68,
+      0,
+      69,
+      1,
+      "AUTOENCODER"
+    ],
+    [
+      100,
+      67,
+      0,
+      74,
+      0,
+      "MAKED_PIPELINE"
+    ],
+    [
+      101,
+      74,
+      2,
+      70,
+      1,
+      "STRING"
+    ],
+    [
+      102,
+      74,
+      3,
+      70,
+      2,
+      "STRING"
+    ],
+    [
+      103,
+      67,
+      0,
+      76,
+      0,
+      "MAKED_PIPELINE"
+    ],
+    [
+      104,
+      74,
+      0,
+      76,
+      1,
+      "EMBEDS"
+    ],
+    [
+      105,
+      74,
+      1,
+      76,
+      2,
+      "EMBEDS"
+    ],
+    [
+      106,
+      76,
+      0,
+      77,
+      0,
+      "PIL_IMAGE"
+    ],
+    [
+      107,
+      70,
+      0,
+      78,
+      0,
+      "PIL_IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
